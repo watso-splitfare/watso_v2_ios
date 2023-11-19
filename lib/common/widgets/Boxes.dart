@@ -34,3 +34,30 @@ class OutlineBox extends StatelessWidget {
     );
   }
 }
+
+class TileContentBox extends StatelessWidget {
+  const TileContentBox(
+      {super.key, required this.title, this.content, this.widget});
+
+  final String title;
+  final String? content;
+  final Widget? widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        if (content != null) Text(content!),
+        if (widget != null) widget!,
+      ],
+    );
+  }
+}

@@ -139,43 +139,15 @@ class _TaxiMainPageState extends State<TaxiMainPage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "출발 시간",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text("PM 11:00"),
-                                  ],
+                                TileContentBox(
+                                  title: "출발 시간",
+                                  content: "PM 11:00",
                                 ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      "출발지",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text("터미널"),
-                                  ],
+                                TileContentBox(
+                                  title: "출발지",
+                                  content: "터미널",
                                 ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "도착지",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text("캠퍼스"),
-                                  ],
-                                ),
+                                TileContentBox(title: "도착지", content: "캠퍼스"),
                                 Text(
                                   "1/4 명",
                                   style: TextStyle(
