@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class WatsoColor {
-  static const Color primary = Colors.deepOrangeAccent;
+  static const Color primary = Color(0xFFFF6E40);
   static const Color background = Color(0xFFF7F7FA);
 }
 
