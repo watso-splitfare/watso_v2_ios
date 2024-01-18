@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:watso_v2/common/constants/styles.dart';
 
 import '../../common/widgets/Boxes.dart';
-import '../../common/widgets/Layout.dart';
 
 class TaxiMainPage extends StatefulWidget {
   const TaxiMainPage({super.key});
@@ -14,6 +15,8 @@ class TaxiMainPage extends StatefulWidget {
 
 class _TaxiMainPageState extends State<TaxiMainPage> {
   DateTime _selectedDate = DateTime.now();
+  String departure = "부산대";
+  String destination = "밀양역";
 
   _beforeDate() {
     setState(() {
@@ -27,171 +30,205 @@ class _TaxiMainPageState extends State<TaxiMainPage> {
     });
   }
 
+  _changeDeparture() {
+    String tmp = departure;
+    setState(() {
+      departure = destination;
+      destination = tmp;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return PageLayout(
-      body: Column(
+    return SingleChildScrollView(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          OutlineBox(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.arrow_back_ios),
-                      onPressed: _beforeDate,
-                    ),
-                    Text(
-                      "${_selectedDate.year}년 ${_selectedDate.month}월 ${_selectedDate.day}일",
-                      style: WatsoFont.title,
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.arrow_forward_ios),
-                      onPressed: _afterDate,
-                    ),
-                  ],
-                ),
-                Divider(
-                  color: Colors.black,
-                  height: 0.5,
-                ),
-                SizedBox(
-                  height: 40,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: WatsoColor.primary,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(10),
-                            ),
-                          ),
-                          child: Text(
-                            "터미널-캠퍼스",
-                            style: WatsoFont.subtitle,
-                          ),
-                        ),
-                      ),
-                      VerticalDivider(
-                        color: Colors.black,
-                        width: 0.5,
-                      ),
-                      Expanded(
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            "캠퍼스-터미널",
-                            style: WatsoFont.subtitle,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: OutlineBox(
-              margin: EdgeInsets.symmetric(vertical: 10),
-              child: Column(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Icon(Icons.local_taxi_sharp),
-                      Text(
-                        "탑승 가능한 택시",
-                        style: WatsoFont.title,
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Text("빠른 시간 순"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey[300],
-                          foregroundColor: Colors.black,
-                          side: BorderSide(color: Colors.black),
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: ListView.separated(
-                      itemBuilder: (BuildContext context, int index) {
-                        return InkWell(
-                          onTap: () {
-                            context.go('/post/$index');
-                          },
-                          child: Container(
-                            color: Colors.grey[200],
-                            height: 50,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                TileContentBox(
-                                  title: "출발 시간",
-                                  content: "PM 11:00",
-                                ),
-                                TileContentBox(
-                                  title: "출발지",
-                                  content: "터미널",
-                                ),
-                                TileContentBox(title: "도착지", content: "캠퍼스"),
-                                Text(
-                                  "1/4 명",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
-                                  child: Text("모집중"),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[300],
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return Divider(
-                          color: Colors.black,
-                          height: 0.5,
-                        );
-                      },
-                      itemCount: 10,
+                  IconButton(
+                    icon: SvgPicture.asset(
+                      "assets/icons/left-arrow.svg",
                     ),
+                    onPressed: _beforeDate,
                   ),
-                  SizedBox(
-                      height: 50,
-                      child: Center(
-                          child: IconButton(
-                        icon: Icon(Icons.add),
-                        onPressed: () {
-                          print("택시 추가");
-                        },
-                      ))),
+                  Text(
+                    "${DateFormat("MM").format(_selectedDate)}월 ${_selectedDate.day}일",
+                    style: WatsoFont.title.copyWith(color: Colors.white),
+                  ),
+                  IconButton(
+                    icon: SvgPicture.asset(
+                      "assets/icons/right-arrow.svg",
+                    ),
+                    onPressed: _afterDate,
+                  ),
                 ],
               ),
-            ),
+              IconButton(
+                  onPressed: () {
+                    print("calendar");
+                  },
+                  icon: SvgPicture.asset("assets/icons/calendar.svg"))
+            ],
+          ),
+          AngularBox(
+            height: 140,
+            child: Stack(children: [
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              "출발",
+                              style: TextStyle(color: Color(0xFF767676)),
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              departure,
+                              style: WatsoFont.mainBody,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.grey,
+                        thickness: 1,
+                        height: 1,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Text(
+                              "도착",
+                              style: TextStyle(color: Color(0xFF767676)),
+                            ),
+                            SizedBox(height: 4),
+                            Text(
+                              destination,
+                              style: WatsoFont.mainBody,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Center(
+                  child: InkWell(
+                onTap: () {
+                  _changeDeparture();
+                },
+                child: Container(
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF767676),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: SvgPicture.asset(
+                      "assets/icons/fluent-arrow.svg",
+                    ),
+                  ),
+                ),
+              )),
+            ]),
+          ),
+          SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Text("택시리스트", style: WatsoFont.title),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Text("출발도착지 ∙ 출발 시간 ∙ 총요금 ∙  정원",
+                style: TextStyle(color: Colors.grey[600], fontSize: 11)),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              for (int i = 0; i < 10; i++) ...{
+                InkWell(
+                    onTap: () {
+                      context.push('/post/$i');
+                    },
+                    child: AngularBox(
+                      height: 100,
+                      margin: EdgeInsets.only(bottom: 16.0),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 16.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                          "assets/icons/direction.svg"),
+                                      SizedBox(width: 8),
+                                      Text(
+                                        departure,
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset("assets/icons/pin.svg"),
+                                      SizedBox(width: 8),
+                                      Text(
+                                        destination,
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Divider(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text("10:00AM"),
+                                Text("6200원"),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text("1/4명"),
+                                    SvgPicture.asset("assets/icons/group.svg"),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    )),
+              }
+            ],
           ),
         ],
       ),

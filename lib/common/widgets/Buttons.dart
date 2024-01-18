@@ -8,24 +8,32 @@ class PrimaryBtn extends StatelessWidget {
       required this.text,
       this.onPressed,
       this.maximumSize,
-      this.minimumSize});
+      this.minimumSize,
+      this.color = WatsoColor.primary});
 
   final String text;
   final VoidCallback? onPressed;
   final Size? maximumSize;
   final Size? minimumSize;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: WatsoColor.primary,
+        backgroundColor: color,
         elevation: 0,
         maximumSize: maximumSize,
         minimumSize: minimumSize,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
       ),
       onPressed: onPressed,
-      child: Text(text),
+      child: Text(
+        text,
+        style: WatsoFont.subtitle,
+      ),
     );
   }
 }

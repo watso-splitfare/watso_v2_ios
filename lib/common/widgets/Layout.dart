@@ -1,77 +1,160 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../constants/styles.dart';
 
 class PageLayout extends StatefulWidget {
-  const PageLayout({super.key, required this.body});
+  const PageLayout({
+    super.key,
+    required this.body,
+    required this.location,
+  });
 
   final Widget body;
+  final String location;
 
   @override
   State<PageLayout> createState() => _PageLayoutState();
 }
 
 class _PageLayoutState extends State<PageLayout> {
-  int _selectedIndex = 0;
-
-  _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  _location() {
+    print("widget.location: ${widget.location}");
+    switch (widget.location) {
+      case "/":
+        return 0;
+      case "/message":
+        return 1;
+      case "/person":
+        return 2;
+      default:
+        return 0;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: WatsoColor.background,
         appBar: AppBar(
           centerTitle: false,
-          backgroundColor: WatsoColor.background,
+          backgroundColor: WatsoColor.primary,
           elevation: 0,
-          foregroundColor: Colors.black,
-          title: Text(
-            "택시왔소",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
+          foregroundColor: Colors.white,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 5.0),
+            child: Text(
+              "택시왔소",
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 20,
+              ),
             ),
           ),
           actions: [
             IconButton(
-              icon: Icon(Icons.search),
+              icon: SvgPicture.asset(
+                "assets/icons/receipt.svg",
+                semanticsLabel: "영수증",
+              ),
               onPressed: () {
-                print("검색");
+                print("영수증");
               },
+              splashColor: Colors.transparent,
             ),
             IconButton(
-              icon: Icon(Icons.more_vert),
+              icon: SvgPicture.asset(
+                "assets/icons/setting.svg",
+                semanticsLabel: "설정",
+              ),
               onPressed: () {
-                print("더보기");
+                print("설정");
               },
+              splashColor: Colors.transparent,
+            ),
+            IconButton(
+              padding: EdgeInsets.all(10),
+              icon: SvgPicture.asset(
+                "assets/icons/notification.svg",
+                semanticsLabel: "알림",
+              ),
+              onPressed: () {
+                print("알림");
+              },
+              splashColor: Colors.transparent,
             ),
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: widget.body,
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              label: '홈',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.assignment_outlined),
-              label: '이용서비스',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              label: '내 정보',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.blue,
-          onTap: _onItemTapped,
+        body: Stack(children: [
+          Container(
+            height: 100,
+            color: WatsoColor.primary,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: widget.body,
+          ),
+        ]),
+
+        // SingleChildScrollView(
+        //   child: Padding(
+        //     padding: const EdgeInsets.symmetric(horizontal: 20),
+        //     child: widget.body,
+        //   ),
+        // ),
+        bottomNavigationBar: SizedBox(
+          height: 100,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              InkWell(
+                onTap: () {
+                  context.go("/");
+                },
+                child: Container(
+                  height: 32,
+                  width: 32,
+                  padding: const EdgeInsets.all(2),
+                  child: SvgPicture.asset(
+                    'assets/icons/home.svg',
+                    fit: BoxFit.fill,
+                    colorFilter: ColorFilter.mode(
+                      _location() == 0 ? WatsoColor.primary : Colors.grey,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  context.go("/message");
+                },
+                child: SvgPicture.asset(
+                  'assets/icons/bigtalk.svg',
+                  height: 32,
+                  width: 32,
+                  colorFilter: ColorFilter.mode(
+                    _location() == 1 ? WatsoColor.primary : Colors.grey,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  context.go("/person");
+                },
+                child: SvgPicture.asset(
+                  'assets/icons/profile.svg',
+                  height: 32,
+                  width: 32,
+                  colorFilter: ColorFilter.mode(
+                    _location() == 2 ? WatsoColor.primary : Colors.grey,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ));
   }
 }
