@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:watso_v2/common/constants/styles.dart';
+import 'package:watso_v2/taxi/pages/LoginPage.dart';
 import 'package:watso_v2/taxi/pages/MainPage.dart';
 import 'package:watso_v2/taxi/pages/RecruitmentPage.dart';
 
@@ -17,11 +18,11 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 final GoRouter _router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: "/",
+  debugLogDiagnostics: true,
   routes: <RouteBase>[
     ShellRoute(
         navigatorKey: _shellNavigatorKey,
         pageBuilder: (BuildContext context, GoRouterState state, child) {
-          print("state.path: ${state.fullPath}");
           return NoTransitionPage(
             child: PageLayout(
               body: child,
@@ -58,6 +59,10 @@ final GoRouter _router = GoRouter(
           pageId: state.pathParameters['pageId']!,
         );
       },
+    ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => LoginPage(),
     ),
   ],
 );
