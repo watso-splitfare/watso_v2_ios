@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/svg.dart' show SvgPicture;
+import 'package:flutter_svg_provider/flutter_svg_provider.dart' show Svg;
 import 'package:go_router/go_router.dart';
 
 import '../../common/constants/styles.dart';
@@ -123,8 +124,10 @@ class _MessagingPageState extends State<MessagingPage> {
                       children: [
                         CircleAvatar(
                           radius: 20,
-                          backgroundImage:
-                              AssetImage("assets/images/profile.png"),
+                          backgroundImage: Svg('assets/icons/profile.svg',
+                              color: Colors.white),
+                          //svg
+                          // AssetImage("assets/images/profile.png"),
                         ),
                         SizedBox(width: 8),
                         Column(
@@ -168,8 +171,8 @@ class _MessagingPageState extends State<MessagingPage> {
                         SizedBox(width: 8),
                         CircleAvatar(
                           radius: 20,
-                          backgroundImage:
-                              AssetImage("assets/images/profile.png"),
+                          backgroundImage: Svg('assets/icons/profile.svg',
+                              color: Colors.white),
                         ),
                       ],
                     ),

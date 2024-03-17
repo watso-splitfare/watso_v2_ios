@@ -15,7 +15,7 @@ class TaxiMainPage extends StatefulWidget {
 
 class _TaxiMainPageState extends State<TaxiMainPage> {
   DateTime _selectedDate = DateTime.now();
-  String departure = "부산대";
+  String departure = "부산대 밀양캠";
   String destination = "밀양역";
 
   _beforeDate() {
@@ -174,12 +174,11 @@ class _TaxiMainPageState extends State<TaxiMainPage> {
                       context.push('/post/$i');
                     },
                     child: AngularBox(
-                      height: 100,
                       margin: EdgeInsets.only(bottom: 16.0),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(left: 16.0),

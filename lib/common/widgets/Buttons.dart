@@ -32,7 +32,7 @@ class PrimaryBtn extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style: WatsoFont.subtitle,
+        style: WatsoFont.subtitle.copyWith(color: Colors.white),
       ),
     );
   }
