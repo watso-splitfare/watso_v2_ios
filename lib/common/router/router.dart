@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:watso_v2/common/router/routes.dart';
 import 'package:watso_v2/common/user/user_provider.dart';
 import 'package:watso_v2/common/widgets/Layout.dart';
-import 'package:watso_v2/taxi/pages/login_screen.dart';
-import 'package:watso_v2/taxi/pages/main_screen.dart';
-import 'package:watso_v2/taxi/pages/messaging_screen.dart';
-import 'package:watso_v2/taxi/pages/recruitment_screen.dart';
-import 'package:watso_v2/taxi/pages/splash_screen.dart';
 
 part 'router.g.dart';
 
@@ -31,37 +27,37 @@ GoRouter myRouter(ref) {
   return GoRouter(
       routes: _routes,
       navigatorKey: _rootNavigatorKey,
-      initialLocation: '/splash',
+      initialLocation: Routes.splash.path,
       refreshListenable: isAuth,
       debugLogDiagnostics: true,
       redirect: (context, state) {
         if (isAuth.value.isLoading || !isAuth.value.hasValue) {
-          return '/splash';
+          return Routes.splash.path;
         }
 
         final auth = isAuth.value.requireValue;
-        if (state.uri.path == '/splash') {
-          return auth ? '/' : '/login';
+        if (state.uri.path == Routes.splash.path) {
+          return auth ? Routes.taxiMain.path : Routes.login.path;
         }
-        if (state.uri.path == '/login') {
-          return auth ? '/' : null;
+        if (state.uri.path == Routes.login.path) {
+          return auth ? Routes.taxiMain.path : null;
         }
-        return auth ? null : '/login';
+        return auth ? null : Routes.login.path;
       });
 }
 // splash screen 만들어야함.
 
 final List<RouteBase> _routes = [
   GoRoute(
-    path: '/splash',
+    path: Routes.splash.path,
     builder: (context, state) {
-      return const SplashScreen();
+      return Routes.splash.screen;
     },
   ),
   GoRoute(
-    path: '/login',
+    path: Routes.login.path,
     builder: (context, state) {
-      return const LoginPage();
+      return Routes.login.screen;
     },
   ),
   ShellRoute(
@@ -69,41 +65,39 @@ final List<RouteBase> _routes = [
       builder: (BuildContext context, GoRouterState state, child) {
         return PageLayout(
           body: child,
-          location: state.fullPath ?? "/",
+          location: state.fullPath ?? Routes.taxiMain.path,
         );
       },
       routes: [
         GoRoute(
-          path: '/',
+          path: Routes.taxiMain.path,
           parentNavigatorKey: _shellNavigatorKey,
           builder: (BuildContext context, GoRouterState state) {
-            return const TaxiMainPage();
+            return Routes.taxiMain.screen;
           },
         ),
         GoRoute(
-            path: '/message',
+            path: Routes.messaging.path,
             parentNavigatorKey: _shellNavigatorKey,
             builder: (BuildContext context, GoRouterState state) {
-              return MessagingPage();
+              return Routes.messaging.screen;
             }),
         GoRoute(
-            path: '/person',
+            path: Routes.profile.path,
             parentNavigatorKey: _shellNavigatorKey,
             builder: (BuildContext context, GoRouterState state) {
-              return MessagingPage();
+              return Routes.profile.screen;
             }),
       ]),
   GoRoute(
-    path: '/post/:pageId',
+    path: Routes.recruitment(':pageId').path,
     parentNavigatorKey: _rootNavigatorKey,
     builder: (BuildContext context, GoRouterState state) {
-      return TaxiRecruitmentPage(
-        pageId: state.pathParameters['pageId']!,
-      );
+      return Routes.recruitment(state.pathParameters['pageId']!).screen;
     },
   ),
   GoRoute(
-    path: '/login',
-    builder: (context, state) => LoginPage(),
+    path: Routes.login.path,
+    builder: (context, state) => Routes.login.screen,
   ),
 ];

@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart' show SvgPicture;
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' show Svg;
-import 'package:go_router/go_router.dart';
 
 import '../../common/constants/styles.dart';
 import '../../common/widgets/Boxes.dart';
 import '../../common/widgets/Buttons.dart';
 
-class MessagingPage extends StatefulWidget {
-  const MessagingPage({super.key});
+class MessagingScreen extends StatefulWidget {
+  const MessagingScreen({super.key});
 
   @override
-  State<MessagingPage> createState() => _MessagingPageState();
+  State<MessagingScreen> createState() => _MessagingScreenState();
 }
 
-class _MessagingPageState extends State<MessagingPage> {
+class _MessagingScreenState extends State<MessagingScreen> {
   String departure = "부산대";
   String destination = "밀양역";
 
@@ -100,9 +99,7 @@ class _MessagingPageState extends State<MessagingPage> {
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: PrimaryBtn(
             minimumSize: Size(double.infinity, 48),
-            onPressed: () {
-              context.go("/message");
-            },
+            onPressed: () {},
             text: "탑승자 확정하기",
           ),
         ),

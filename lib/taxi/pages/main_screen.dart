@@ -4,16 +4,17 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:watso_v2/common/constants/styles.dart';
 
+import '../../common/router/routes.dart';
 import '../../common/widgets/Boxes.dart';
 
-class TaxiMainPage extends StatefulWidget {
-  const TaxiMainPage({super.key});
+class TaxiMainScreen extends StatefulWidget {
+  const TaxiMainScreen({super.key});
 
   @override
-  State<TaxiMainPage> createState() => _TaxiMainPageState();
+  State<TaxiMainScreen> createState() => _TaxiMainScreenState();
 }
 
-class _TaxiMainPageState extends State<TaxiMainPage> {
+class _TaxiMainScreenState extends State<TaxiMainScreen> {
   DateTime _selectedDate = DateTime.now();
   String departure = "부산대 밀양캠";
   String destination = "밀양역";
@@ -171,7 +172,7 @@ class _TaxiMainPageState extends State<TaxiMainPage> {
               for (int i = 0; i < 10; i++) ...{
                 InkWell(
                     onTap: () {
-                      context.push('/post/$i');
+                      context.push(Routes.recruitment(i.toString()).path);
                     },
                     child: AngularBox(
                       margin: EdgeInsets.only(bottom: 16.0),

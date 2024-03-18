@@ -4,18 +4,19 @@ import 'package:go_router/go_router.dart';
 import 'package:watso_v2/common/widgets/Boxes.dart';
 
 import '../../common/constants/styles.dart';
+import '../../common/router/routes.dart';
 import '../../common/widgets/Buttons.dart';
 
-class TaxiRecruitmentPage extends StatefulWidget {
-  const TaxiRecruitmentPage({super.key, required this.pageId});
+class TaxiRecruitmentScreen extends StatefulWidget {
+  const TaxiRecruitmentScreen({super.key, required this.pageId});
 
   final String pageId;
 
   @override
-  State<TaxiRecruitmentPage> createState() => _TaxiRecruitmentPageState();
+  State<TaxiRecruitmentScreen> createState() => _TaxiRecruitmentScreenState();
 }
 
-class _TaxiRecruitmentPageState extends State<TaxiRecruitmentPage> {
+class _TaxiRecruitmentScreenState extends State<TaxiRecruitmentScreen> {
   String departure = "부산대";
   String destination = "밀양역";
 
@@ -141,7 +142,7 @@ class _TaxiRecruitmentPageState extends State<TaxiRecruitmentPage> {
                 child: PrimaryBtn(
                   minimumSize: Size(double.infinity, 48),
                   onPressed: () {
-                    context.go("/message");
+                    context.go(Routes.messaging.path);
                   },
                   text: "탑승하기",
                 ),
