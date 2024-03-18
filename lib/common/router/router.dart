@@ -3,10 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:watso_v2/common/user/user_provider.dart';
 import 'package:watso_v2/common/widgets/Layout.dart';
-import 'package:watso_v2/taxi/pages/LoginPage.dart';
-import 'package:watso_v2/taxi/pages/MainPage.dart';
-import 'package:watso_v2/taxi/pages/MessagingPage.dart';
-import 'package:watso_v2/taxi/pages/RecruitmentPage.dart';
+import 'package:watso_v2/taxi/pages/login_screen.dart';
+import 'package:watso_v2/taxi/pages/main_screen.dart';
+import 'package:watso_v2/taxi/pages/messaging_screen.dart';
+import 'package:watso_v2/taxi/pages/recruitment_screen.dart';
 import 'package:watso_v2/taxi/pages/splash_screen.dart';
 
 part 'router.g.dart';
