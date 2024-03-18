@@ -2,6 +2,13 @@
 
 - json_serializable,freezed : json 직렬화를 위한 라이브러리
 - annotation : 코드 생성을 위한 라이브러리 > json_serializable,freezed,riverpod
+  처음 사용시 빌드를 해야함
+
+```
+flutter pub run build_runner build
+flutter pub run build_runner watch
+```
+
 - riverpod : 상태관리를 위한 라이브러리
 - dio : http 통신 편하게..
 - go_router : 라T우팅 편하게..
@@ -40,3 +47,8 @@ model,provider,view 형식
 ```
 
 단 body를 적지 않아도 됨.
+
+### 페이지 개발시
+
+redirect, refreshListenable을 주석처리하시고,
+Routes와 _routes에 경로 추가하시고 원하시는 페이지를 initialLocation으로 지정해서 개발하시면 됩니다!
